@@ -8,3 +8,4 @@
   - https://github.com/mafintosh/simple-message-channels/blob/master/index.js
   - https://github.com/mafintosh/simple-message-channels/blob/master/test.js
   - https://github.com/mafintosh/simple-message-channels/blob/master/example.js
+  - https://github.com/mafintosh/simple-message-channels#api
