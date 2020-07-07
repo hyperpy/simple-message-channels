@@ -1,11 +1,10 @@
 """Sans I/O wire protocol for Hypercore"""
-
-__all__ = ["SimpleMessageChannel"]
-
 from typing import List, Optional
 
 import attr
+import pyvarint
 
+__all__ = ["SimpleMessageChannel"]
 
 @attr.s(auto_attribs=True)
 class SimpleMessageChannel:
