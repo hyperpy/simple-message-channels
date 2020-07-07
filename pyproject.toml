@@ -4,8 +4,8 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "simple-message-channels"
-version = "0.0.1a8"
-description = "Utilities for navigating flat trees"
+version = "0.0.1a1"
+description = "Sans I/O wire protocol for Hypercore"
 authors = ["decentral1se <hi@decentral1.se>"]
 maintainers = ["decentral1se <hi@decentral1.se>"]
 license = "GPLv3"
