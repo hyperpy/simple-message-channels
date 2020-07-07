@@ -25,14 +25,22 @@ class SimpleMessageChannel:
     destroyed: bool = False
     error: Optional[Exception] = None
 
-    # TODO(decentral1se): need to lookup type of what is being passed in
-    # context: ???
-
-    # TODO(decentral1se): allow to override instead of callback interface!?
-    # onmissing: ???
-    # onmessage: ???
+    # TODO(decentral1se): context, onmessage, onmissing
 
     async def send(self, channel: int, type: int, message: bytes) -> bytes:
+        """Produce data that can be sent over the channel."""
+        header = channel << 4 or type
+        length = self.encoding_length(type, message) + pyvarint.encoding_length(header)
+        # TODO(decentral1se): implement offset in pyvarint encode/decode
+
+    async def recv(self, data: bytes) -> bool:
+        """Receive data sent over a channel."""
         pass
 
-    # TODO(decentral1se): spec out the context manager API of recv
+    def destroy(self) -> None:
+        """Mark message channel as destroyed."""
+        self.destroyed = True
+
+    def encoding_length(self, type:int, message: bytes) -> int:
+        """TODO"""
+        pass
