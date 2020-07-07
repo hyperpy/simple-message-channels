@@ -4,6 +4,14 @@
 
 ## Sans I/O wire protocol for Hypercore
 
+## Install
+
 ```sh
 $ pip install simple-message-channels
+```
+
+## Example
+
+```python
+print("TODO")
 ```

@@ -1,11 +1,76 @@
 [build-system]
-requires = [
-  "setuptools",
-  "setuptools-scm",
-  "wheel",
-]
-build-backend = "setuptools.build_meta"
+requires = ["poetry>=1.0.9,<2.0"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry]
+name = "simple-message-channels"
+version = "0.0.1a8"
+description = "Utilities for navigating flat trees"
+authors = ["decentral1se <hi@decentral1.se>"]
+maintainers = ["decentral1se <hi@decentral1.se>"]
+license = "GPLv3"
+readme = "README.md"
+repository = "https://github.com/hyperpy/simple-message-channels"
+keywords = ["hypercore", "hypercore-protocol"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+attrs = "^19.3.0"
+
+[tool.poetry.dev-dependencies]
+black = "^19.10b0"
+flake8 = "^3.8.3"
+isort = "^5.0.2"
 
 [tool.black]
 line-length = 80
 target-version = ["py38"]
+include = '\.pyi?$'
+
+[tool.isort]
+include_trailing_comma = true
+known_first_party = "simple_message_channels"
+known_third_party = "pytest"
+line_length = 80
+multi_line_output = 3
+skip = ".venv,.tox"
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist =
+    {py36,py37,py38}
+    lint
+    sort
+    format
+    type
+skip_missing_interpreters = True
+isolated_build = True
+
+[testenv]
+deps =
+  pytest
+  pytest-cov
+  pytest-mock
+commands = pytest test/ --cov={toxinidir}/simple_message_channels/ --no-cov-on-fail {posargs}
+
+[testenv:lint]
+skipdist = True
+deps = flake8
+commands = flake8 {posargs:--max-line-length 80} simple_message_channels/ test/
+
+[testenv:sort]
+skipdist = True
+deps = isort
+commands = isort {posargs:-c} simple_message_channels/ test/
+
+[testenv:format]
+skipdist = True
+deps = black
+commands = black {posargs:--check} simple_message_channels/ test/
+
+[testenv:type]
+skipdist = True
+deps = mypy
+commands = mypy {posargs:--ignore-missing-imports} simple_message_channels/ test/
+"""
