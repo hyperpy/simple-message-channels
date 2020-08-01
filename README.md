@@ -13,5 +13,18 @@ $ pip install simple-message-channels
 ## Example
 
 ```python
-print("TODO")
+from simple_message_channels import SimpleMessageChannel
+
+smc = SimpleMessageChannel()
+
+send = smc.send(1, 2, b"foo")
+recv = smc.recv(send_payload)
+
+print(f"send: {send}", f"recv: {recv}, sep="\n")
+```
+
+Output:
+
+```sh
+
 ```
