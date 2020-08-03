@@ -11,7 +11,7 @@ __all__ = ["SimpleMessageChannel"]
 class SimpleMessageChannel:
     """A simple message channel."""
 
-    async def send(self, channel: int, type: int, message: bytes) -> bytes:
+    def send(self, channel: int, type: int, message: bytes) -> bytes:
         """Encode a channel, type and message data to be sent.
 
         :param channel: the message channel identifier
@@ -22,17 +22,17 @@ class SimpleMessageChannel:
         length = len(message) + encoding_length(header)
         return encode(length) + encode(header) + message
 
-    async def send_batch(self, messages: List[Tuple[int, int, bytes]]) -> bytes:
+    def send_batch(self, messages: List[Tuple[int, int, bytes]]) -> bytes:
         """Encodes a series of messages into a single payload of bytes.
 
         :param messages: Several data messages
         """
         payload = b""
         for (channel, type, message) in messages:
-            payload += await self.send(channel, type, message)
+            payload += self.send(channel, type, message)
         return payload
 
-    async def recv(self, data: bytes) -> Tuple[int, int, bytes]:
+    def recv(self, data: bytes) -> Tuple[int, int, bytes]:
         """Encode a channel, type, message to be sent.
 
         :param data: the message data
