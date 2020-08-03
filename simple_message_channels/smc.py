@@ -64,8 +64,23 @@ class SimpleMessageChannel:
 
     def _read_varint(self, data: bytes, offset: int) -> int:
         """TODO."""
-        pass
+        while offset < len(data):
+            self.varint += (data[offset] & 127) * self.factor
+            self.consumed += 1
 
-    def _next_state(self, data: bytes, offset: int) -> None:
+            if data[offset] < 128:
+                state = self._next_state(data, offset + 1)
+                if state:
+                    return offset
+                return len(data)
+
+            offset += 1
+
+        if self.consumed >= 8:
+            raise RuntimeError("Incoming varint is invalid")
+
+        return len(data)
+
+    def _next_state(self, data: bytes, offset: int) -> bool:
         """TODO."""
         pass
