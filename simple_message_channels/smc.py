@@ -11,7 +11,7 @@ __all__ = ["SimpleMessageChannel"]
 class SimpleMessageChannel:
     """A simple message channel."""
 
-    message: Optional[Tuple[int, int, bytes]] = None
+    messages: List[Tuple[int, int, bytes]] = attr.Factory(list)
     varint: int = 0
     factor: int = 1
     length: int = 0
