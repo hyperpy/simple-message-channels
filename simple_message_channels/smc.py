@@ -12,6 +12,7 @@ class SimpleMessageChannel:
     """A simple message channel."""
 
     messages: List[Tuple[int, int, bytes]] = attr.Factory(list)
+
     varint: int = 0
     factor: int = 1
     length: int = 0
