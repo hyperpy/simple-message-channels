@@ -21,6 +21,7 @@ smc_a = SimpleMessageChannel()
 smc_b = SimpleMessageChannel()
 
 payload = smc_b.send(0, 1, b"foo")
+print(f"sent: {payload})
 
 for idx in range(0, len(payload)):
     smc_a.recv(payload[idx, idx + 1])
@@ -32,5 +33,6 @@ for msg in smc_a.messages:
 Output:
 
 ```sh
+sent: ...
 received: (0, 1, b"foo")
 ```
