@@ -32,5 +32,5 @@ for msg in smc_a.messages:
 Output:
 
 ```sh
-(0, 1, b"foo")
+received: (0, 1, b"foo")
 ```
