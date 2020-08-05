@@ -1,4 +1,5 @@
 import pytest
+
 from simple_message_channels import SimpleMessageChannel as SMC
 
 

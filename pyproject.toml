@@ -58,7 +58,7 @@ commands = pytest test/ --cov={toxinidir}/simple_message_channels/ --no-cov-on-f
 [testenv:lint]
 skipdist = True
 deps = flake8
-commands = flake8 {posargs:--max-line-length 80} simple_message_channels/ test/
+commands = flake8 {posargs:--max-line-length 80} --ignore="E203" simple_message_channels/ test/
 
 [testenv:sort]
 skipdist = True

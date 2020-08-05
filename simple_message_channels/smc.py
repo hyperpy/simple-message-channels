@@ -1,5 +1,5 @@
 """Sans I/O wire protocol for Hypercore"""
-from typing import List, Optional, Tuple
+from typing import List, Tuple
 
 import attr
 from pyvarint import encode, encoding_length
