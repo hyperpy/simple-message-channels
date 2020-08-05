@@ -1,8 +1,12 @@
 import pytest
+from simple_message_channels import SimpleMessageChannel as SMC
 
 
 @pytest.fixture
-def smc():
-    from simple_message_channels import SimpleMessageChannel
+def smc1():
+    return SMC()
 
-    return SimpleMessageChannel()
+
+@pytest.fixture
+def smc2():
+    return SMC()
