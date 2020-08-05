@@ -4,8 +4,6 @@
 
 ## Sans I/O wire protocol for Hypercore
 
-> **Work In Progress**
-
 ## Install
 
 ```sh
