@@ -60,7 +60,11 @@ class SimpleMessageChannel:
             self._read_msg(data, offset)
 
     def _read_msg(self, data: bytes, offset: int) -> int:
-        """TODO."""
+        """Read a message chunk.
+
+        :param data: the message data
+        :param offset: the bytes offset
+        """
         free = len(data) - offset
 
         if free >= self.length:
@@ -79,7 +83,11 @@ class SimpleMessageChannel:
         return len(data)
 
     def _read_varint(self, data: bytes, offset: int) -> int:
-        """TODO."""
+        """Read a varint from a byte stream.
+
+        :param data: the message data
+        :param offset: the bytes offset
+        """
         while offset < len(data):
             self.varint += (data[offset] & 127) * self.factor
             self.consumed += 1
@@ -96,7 +104,11 @@ class SimpleMessageChannel:
         return len(data)
 
     def _next_state(self, data: bytes, offset: int) -> bool:
-        """TODO."""
+        """Calculate the next state.
+
+        :param data: the message data
+        :param offset: the bytes offset
+        """
         if self.state == 0:
             self.state = 1
             self.factor = 1
