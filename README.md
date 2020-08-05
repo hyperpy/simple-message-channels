@@ -15,22 +15,20 @@ $ pip install simple-message-channels
 ```python
 from simple_message_channels import SimpleMessageChannel
 
-smc_a = SimpleMessageChannel()
-smc_b = SimpleMessageChannel()
+smc1 = SimpleMessageChannel()
+smc2 = SimpleMessageChannel()
 
-payload = smc_b.send(0, 1, b"foo")
+payload = smc1.send(0, 1, b"foo")
 print(f"sent: {payload}")
 
 for idx in range(0, len(payload)):
-    smc_a.recv(payload[idx : idx + 1])
-
-for msg in smc_a.messages:
-    print(f"received: {msg}")
+    smc2.recv(payload[idx : idx + 1])
+print(f"received: {smc2.messages}")
 ```
 
 Output:
 
 ```sh
 sent: b'\x04\x01foo'
-received: (0, 1, b'foo')
+received: [(0, 1, b'foo')]
 ```
