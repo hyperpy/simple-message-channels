@@ -128,4 +128,7 @@ class SimpleMessageChannel:
                 raise RuntimeError("Incoming message too large")
         else:
             self.state = 0
+            self.messages.append(
+                (self.header >> 4, self.header & 0b1111, self.message)
+            )
             self.message = b""
