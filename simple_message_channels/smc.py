@@ -73,8 +73,8 @@ class SimpleMessageChannel:
             else:
                 self.message = data[offset : offset + self.length]
 
+            self._next_state()
             offset += self.length
-            self._next_state(data, offset)
             return offset
 
         self.message += data
@@ -93,22 +93,19 @@ class SimpleMessageChannel:
             self.consumed += 1
 
             if data[offset] < 128:
-                self._next_state(data, offset + 1)
+                self._next_state()
+                offset += 1
                 return offset
 
-            offset += 1
+            self.factor *= 128
 
         if self.consumed >= 8:
             raise RuntimeError("Incoming varint is invalid")
 
         return len(data)
 
-    def _next_state(self, data: bytes, offset: int) -> bool:
-        """Calculate the next state.
-
-        :param data: the message data
-        :param offset: the bytes offset
-        """
+    def _next_state(self) -> None:
+        """Calculate the next state."""
         if self.state == 0:
             self.state = 1
             self.factor = 1
@@ -126,9 +123,11 @@ class SimpleMessageChannel:
             self.varint = 0
             if self.length < 0 or self.length > self.max_size:
                 raise RuntimeError("Incoming message too large")
-        else:
+        elif self.state == 2:
             self.state = 0
-            self.messages.append(
-                (self.header >> 4, self.header & 0b1111, self.message)
-            )
+            channel = self.header >> 4
+            type = self.header & 0b1111
+            self.messages.append((channel, type, self.message))
             self.message = b""
+        else:
+            raise RuntimeError(f"Unknown state {self.state}")
